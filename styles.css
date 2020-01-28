@@ -1,0 +1,16 @@
+body {
+	background-color: #88B04B;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+}
+
+div {
+	margin: 0
+}
+
+html {
+	height: 100%
+}
