@@ -1,28 +1,28 @@
-let horizontalLength
-let verticalLength
+// Unit used to calculate garden size in pixels, relative to feet
+let unit = window.innerWidth * 0.085 // roughly 100px
 
 // Static object containing info about each plant's constraints
 let plantList = {
-  'arugula': { height: (100/4), width: (100/4), color: '#000' },
-  'beans, bush': { height: (100/2), width: (100/2), color: '#000' },
-  'beans, pole': { height: (100/2), width: (100/2), color: '#000' },
-  'brussels sprouts': { height: 100, width: 100, color: '#000' },
-  'cabbage': { height: 100, width: 100, color: '#000' },
-  'carrots': { height: (100/4), width: (100/4), color: '#000' },
-  'cauliflower': { height: 100, width: 100, color: '#000' },
-  'celery': { height: (100/2), width: (100/2), color: '#000' },
-  'cucumber': { height: (100), width: (100), color: '#000' },
-  'eggplant': { height: 100, width: 100, color: '#000' },
-  'garlic': { height: (100/4), width: (100/4), color: '#000' },
-  'kale': { height: (100/2), width: (100/2), color: '#000' },
-  'leeks': { height: (100/6), width: (100/6), color: '#000' },
-  'lettuce': { height: (100/5), width: (100/5), color: '#000' },
-  'onion': { height: (100/9), width: (100/9), color: '#000' },
-  'parsnip': { height: (100/9), width: (100/9), color: '#000' },
-  'pepper': { height: 100, width: 100, color: '#000' },
-  'spinach': { height: (100/9), width: (100/9), color: '#000' },
-  'squash': { height: 100, width: 100, color: 'yellow' },
-  'tomato': { height: 100, width: 100, color: 'red' }
+  'arugula': { height: (unit/4), width: (unit/4), color: '#000' },
+  'beans, bush': { height: (unit/2), width: (unit/2), color: '#000' },
+  'beans, pole': { height: (unit/2), width: (unit/2), color: '#000' },
+  'brussels sprouts': { height: unit, width: unit, color: '#000' },
+  'cabbage': { height: unit, width: unit, color: '#000' },
+  'carrots': { height: (unit/4), width: (unit/4), color: '#000' },
+  'cauliflower': { height: unit, width: unit, color: '#000' },
+  'celery': { height: (unit/2), width: (unit/2), color: '#000' },
+  'cucumber': { height: (unit), width: (unit), color: '#000' },
+  'eggplant': { height: unit, width: unit, color: '#000' },
+  'garlic': { height: (unit/4), width: (unit/4), color: '#000' },
+  'kale': { height: (unit/2), width: (unit/2), color: '#000' },
+  'leeks': { height: (unit/6), width: (unit/6), color: '#000' },
+  'lettuce': { height: (unit/5), width: (unit/5), color: '#000' },
+  'onion': { height: (unit/9), width: (unit/9), color: '#000' },
+  'parsnip': { height: (unit/9), width: (unit/9), color: '#000' },
+  'pepper': { height: unit, width: unit, color: '#000' },
+  'spinach': { height: (unit/9), width: (unit/9), color: '#000' },
+  'squash': { height: unit, width: unit, color: 'yellow' },
+  'tomato': { height: unit, width: unit, color: 'red' }
 }
 
 // Get this data from user input
@@ -34,13 +34,13 @@ let garden = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  //add a button that will add plants to the holding area
+  // add a button that will add plants to the holding area
   let plantButton = select('#addPlantButton');
   // plantButton.mousePressed(addPlant)
 
-  //select the select
+  // select the select
   let plantSelect = select('#selectPlant')
-  //when the user adds a plant, do stuff
+  // when the user adds a plant, do stuff
   plantButton.mousePressed(function (){
     let selection = plantSelect.value()
 
@@ -50,8 +50,8 @@ function setup() {
     plantTheGarden(selection)
   })
 
-  //select the horizontalLength select
-  horizontalLength = parseInt(select('#horizontalLength').value())
+  // select the gardenWidth select
+  gardenXFeet = parseInt(select('#gardenWidth').value())
   //when the user changes the length, do stuff
   // plantButton.mousePressed(function (){
   //   let selection = plantSelect.value()
@@ -62,10 +62,10 @@ function setup() {
   //   console.log(plantSelections)
   //   plantTheGarden(selection)
   // })
-  console.log(horizontalLength)
+  console.log(gardenXFeet)
 
-  //select the verticalLength select
-  verticalLength = parseInt(select('#verticalLength').value())
+  //select the gardenHeight select
+  gardenYFeet = parseInt(select('#gardenHeight').value())
   //when the user changes the length, do stuff
   // plantButton.mousePressed(function (){
   //   let selection = plantSelect.value()
@@ -76,32 +76,44 @@ function setup() {
   //   console.log(plantSelections)
   //   plantTheGarden(selection)
   // })
-  console.log(verticalLength)
+  console.log(gardenYFeet)
 
+  let gardenWontFit = unit * gardenYFeet > window.innerHeight
+  if (gardenWontFit) {
+    unit = window.innerHeight / 12
+  }
 }
 
 function draw() {
   background(200);
 
-//draw the garden area
+  // draw the garden area
   strokeWeight(4);
   stroke(51);
   fill(255)
 
+  let gardenWidth = gardenXFeet * unit
+  let gardenHeight = gardenYFeet * unit
 
-  rect(windowWidth/10, 200, horizontalLength*100, verticalLength*100)
+  let gardenXStart = (windowWidth - gardenWidth) / 2
+  let gardenXEnd = gardenXStart + gardenWidth
 
-  for (let step = (windowWidth/10+100); step < horizontalLength*100+100; step += (100)) {
-    line(step,200,step,200+(verticalLength*100))
-    // Runs 5 times, with values of step 0 through 4.
+  let gardenYStart = (windowHeight - gardenHeight) / 2
+  let gardenYEnd = gardenYStart + gardenHeight
+
+  rect(gardenXStart, gardenYStart, gardenWidth, gardenHeight)
+
+  // Draw vertical lines
+  for (let x = (gardenXStart + unit); x < gardenXEnd; x += unit) {
+    line(x, gardenYStart, x, gardenYEnd)
   }
 
-  for (let step = (200); step < verticalLength*100+100; step += 100) {
-    line((windowWidth/10),step,(windowWidth/10+(horizontalLength*100)),step)
-    // Runs 5 times, with values of step 0 through 4.
+  // Draw horizontal lines
+  for (let y = (gardenYStart + unit); y < gardenYEnd; y += unit) {
+    line(gardenXStart, y, gardenXEnd, y)
   }
 
-//methods from Draggable
+  // methods from Draggable
   garden.forEach(function (plant) {
     plant.over();
     plant.update();
@@ -121,7 +133,7 @@ function mouseReleased() {
   })
 }
 
-//adding new plants chosen by user to the page
+// adding new plants chosen by user to the page
 function plantTheGarden(selection) {
 
   // plantSelections.forEach(function (selection) {
@@ -134,8 +146,10 @@ function plantTheGarden(selection) {
   //   // y += 10
   // })
 
+  let start = unit / 2
+
   plantInfo = plantList[selection]
-  plant = new Draggable(50, 50, plantInfo.width, plantInfo.height, plantInfo.color)
+  plant = new Draggable(start, start, plantInfo.width, plantInfo.height, plantInfo.color)
 
   garden.push(plant)
 
