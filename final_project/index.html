@@ -6,43 +6,71 @@
 </head>
 
 <body>
+  <div class="controls">
+
+    <!--add a select for the horizontal length of the garden bed-->
+    <label for="horizontalLength">Horizontal Length of Garden (feet)</label>
+    <select id="horizontalLength">
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option selected>8</option>
+        <option>9</option>
+        <option>10</option>
+    </select>
+
+    <!--add a select for the vertical length of the garden bed-->
+    <label for="verticalLength">Vertical Length of Garden (feet)</label>
+    <select id="verticalLength">
+        <option>2</option>
+        <option>3</option>
+        <option selected>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10</option>
+    </select>
+
+    <!--add a select that lists the plant options-->
+    <label for="selectPlant">Choose a plant:</label>
+    <select id="selectPlant">
+        <option value="">--Please choose an option--</option>
+        <option>arugula</option>
+        <option>beans, bush</option>
+        <option>beans, pole</option>
+        <option>brussels sprouts</option>
+        <option>cabbage</option>
+        <option>carrots</option>
+        <option>cauliflower</option>
+        <option>celery</option>
+        <option>cucumber</option>
+        <option>eggplant</option>
+        <option>garlic</option>
+        <option>kale</option>
+        <option>leeks</option>
+        <option>lettuce</option>
+        <option>onion</option>
+        <option>parsnip</option>
+        <option>pepper</option>
+        <option>spinach</option>
+        <option>squash</option>
+        <option>tomato</option>
+    </select>
+    
+    <!--add a button that will add selected plants to the garden-->
+    <button id="addPlantButton">
+          Add plant!
+    </button>
+  </div>
+
   <script src="p5.js"></script>
   <script src="draggable.js"></script>
   <script src="sketch.js"></script>
-
-  <!--add a button that will add selected plants to the garden-->
-  <button id="addPlantButton">
-        Add plant!
-  </button>
-
-  <!--add a select that lists the plant options-->
-  <label for="selectPlant">Choose a plant:</label>
-
-  <select name="plantSelect" id="selectPlant">
-      <option value="">--Please choose an option--</option>
-      <option>arugula</option>
-      <option>beans, bush</option>
-      <option>beans, pole</option>
-      <option>brussels sprouts</option>
-      <option>cabbage</option>
-      <option>carrots</option>
-      <option>cauliflower</option>
-      <option>celery</option>
-      <option>cucumber</option>
-      <option>eggplant</option>
-      <option>garlic</option>
-      <option>kale</option>
-      <option>leeks</option>
-      <option>lettuce</option>
-      <option>onion</option>
-      <option>parsnip</option>
-      <option>pepper</option>
-      <option>spinach</option>
-      <option>squash</option>
-      <option>tomato</option>
-  </select>
-
-
 </body>
 
 </html>

@@ -1,22 +1,19 @@
 List of Requirements
 
 ✓ Create multiple plants
-Each plant has its own size
-Fixed number of plant types
+✓ Each plant has its own size
+✓ Fixed number of plant types
 Objects can only be dragged within our canvas window
 We can detect when plants intersect with each other
 We can detect when plants intersect with a specific part of the canvas (trash can)
-Need a select that displays available plants
-Need an add button that creates a new instance of the selected plant
+✓ Need a select that displays available plants
+✓ Need an add button that creates a new instance of the selected plant
 Each plant needs to indicate visually what type it is
 Visually indicate when plants overlap
 We can delete plants when they enter the trash can
+Users can select the size of their garden
+A garden plot is drawn on the canvas as a grid marking every square foot
 
 
 Optional
 New plants are inserted offset from the previous insertion
-
-✓
-while andrew is gone:
-make list of plants
-make select and button that console logs what is selected
