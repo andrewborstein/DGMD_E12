@@ -25,6 +25,9 @@ let plantList = {
   'tomato': { height: unit, width: unit, color: 'red' }
 }
 
+let gardenXSelect
+let gardenYSelect
+
 // Get this data from user input
 let plantSelections = [];
 
@@ -33,6 +36,9 @@ let garden = [];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  gardenXSelect = select('#gardenWidth')
+  gardenYSelect = select('#gardenHeight')
 
   // add a button that will add plants to the holding area
   let plantButton = select('#addPlantButton');
@@ -50,39 +56,15 @@ function setup() {
     plantTheGarden(selection)
   })
 
-  // select the gardenWidth select
-  gardenXFeet = parseInt(select('#gardenWidth').value())
-  //when the user changes the length, do stuff
-  // plantButton.mousePressed(function (){
-  //   let selection = plantSelect.value()
-  //
-  //   if (!selection) return
-  //
-  //   plantSelections.push(selection)
-  //   console.log(plantSelections)
-  //   plantTheGarden(selection)
-  // })
-  console.log(gardenXFeet)
+  resizeGarden()
 
-  //select the gardenHeight select
-  gardenYFeet = parseInt(select('#gardenHeight').value())
-  //when the user changes the length, do stuff
-  // plantButton.mousePressed(function (){
-  //   let selection = plantSelect.value()
-  //
-  //   if (!selection) return
-  //
-  //   plantSelections.push(selection)
-  //   console.log(plantSelections)
-  //   plantTheGarden(selection)
-  // })
-  console.log(gardenYFeet)
+  // change the size of the garden if new values are selected
+  gardenXSelect.changed(resizeGarden)
 
-  let gardenWontFit = unit * gardenYFeet > window.innerHeight
-  if (gardenWontFit) {
-    unit = window.innerHeight / 12
-  }
+  // change the size of the garden if new values are selected
+  gardenYSelect.changed(resizeGarden)
 }
+
 
 function draw() {
   background(200);
@@ -159,4 +141,15 @@ function plantTheGarden(selection) {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+}
+
+function resizeGarden() {
+  gardenXFeet = parseInt(gardenXSelect.value()) 
+  gardenYFeet = parseInt(gardenYSelect.value())
+
+  unit = window.innerWidth * 0.085
+  let gardenWontFit = unit * gardenYFeet > window.innerHeight
+  if (gardenWontFit) {
+    unit = window.innerHeight / (gardenYFeet + 2)
+  }
 }
