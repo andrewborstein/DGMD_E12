@@ -62,48 +62,18 @@ let plantList = {
   }
 }
 
+
+let x = 50
+let y = 50
+
 // Get this data from user input
-let plantSelections = [
-  'arugula',
-  'beans, bush',
-  'beans, pole',
-  'brussels sprouts',
-  'cabbage',
-  'carrots',
-  'cauliflower',
-  'celery',
-  'cucumber',
-  'eggplant',
-  'garlic',
-  'kale',
-  'leeks',
-  'lettuce',
-  'onion',
-  'parsnip',
-  'pepper',
-  'spinach',
-  'squash',
-  'tomato'
-];
+let plantSelections = [];
 
 // Create the garden based on plant selections
 let garden = [];
 
 function setup() {
   createCanvas(640, 360);
-
-  let x = 50
-  let y = 50
-
-  plantSelections.forEach(function (selection) {
-    plantInfo = plantList[selection]
-    plant = new Draggable(x, y, plantInfo.width, plantInfo.height, plantInfo.color)
-
-    garden.push(plant)
-
-    x += 10
-    y += 10
-  })
 
   //add a button that will add plants to the holding area
   let plantButton = select('#addPlantButton');
@@ -113,8 +83,13 @@ function setup() {
   //select the select
   let plantSelect = select('#selectPlant')
   plantButton.mousePressed(function (){
-    plantSelections.push(plantSelect.value())
-    alert(plantSelections)
+    let selection = plantSelect.value()
+
+    if (!selection) return
+    
+    plantSelections.push(selection)
+    console.log(plantSelections)
+    plantTheGarden(selection)
   })
 }
 
@@ -140,6 +115,23 @@ function mouseReleased() {
   })
 }
 
-// function addPlant() {
-//   let index = floor(random(fortunes.length));
-// };
+function plantTheGarden(selection) {
+
+  // plantSelections.forEach(function (selection) {
+  //   plantInfo = plantList[selection]
+  //   plant = new Draggable(x, y, plantInfo.width, plantInfo.height, plantInfo.color)
+  //
+  //   garden.push(plant)
+  //
+  //   // x += 10
+  //   // y += 10
+  // })
+
+  plantInfo = plantList[selection]
+  plant = new Draggable(x, y, plantInfo.width, plantInfo.height, plantInfo.color)
+
+  garden.push(plant)
+
+  // x += 10
+  // y += 10
+}
