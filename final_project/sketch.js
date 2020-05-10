@@ -1,10 +1,10 @@
 // Static object containing info about each plant's constraints
 let plantList = {
   'arugula': {
-    height: (100/16), width: (100/16), color: '#000'
+    height: (100/4), width: (100/4), color: '#000'
   },
   'beans, bush': {
-    height: (100/4), width: (100/4), color: '#000'
+    height: (100/2), width: (100/2), color: '#000'
   },
   'beans, pole': {
     height: (100/8), width: (100/8), color: '#000'
@@ -86,7 +86,7 @@ function setup() {
     let selection = plantSelect.value()
 
     if (!selection) return
-    
+
     plantSelections.push(selection)
     console.log(plantSelections)
     plantTheGarden(selection)
