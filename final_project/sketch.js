@@ -6,26 +6,26 @@ let weightNess = weight * 1.5
 
 // Static object containing info about each plant's constraints
 let plantList = {
-  arugula: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess), color: "#000" },
-  beansBush: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
-  beansPole: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
-  brusselsSprouts: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
-  cabbage: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
-  carrots: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess), color: "#000" },
-  cauliflower: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
-  celery: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
-  cucumber: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
-  eggplant: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
-  garlic: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess), color: "#000" },
-  kale: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
-  leeks: { height: (unit / 6 - weightNess), width: (unit / 6 - weightNess), color: "#000" },
-  lettuce: { height: (unit / 5 - weightNess), width: (unit / 5 - weightNess), color: "#000" },
-  onion: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess), color: "#000" },
-  parsnip: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess), color: "#000" },
-  pepper: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
-  spinach: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess), color: "#000" },
-  squash: { height: (unit - weightNess), width: (unit - weightNess), color: "yellow" },
-  tomato: { height: (unit - weightNess), width: (unit - weightNess), color: "red" },
+  arugula: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess) },
+  beansBush: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
+  beansPole: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
+  brusselsSprouts: { height: (unit - weightNess), width: (unit - weightNess) },
+  cabbage: { height: (unit - weightNess), width: (unit - weightNess) },
+  carrots: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess) },
+  cauliflower: { height: (unit - weightNess), width: (unit - weightNess) },
+  celery: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
+  cucumber: { height: (unit - weightNess), width: (unit - weightNess) },
+  eggplant: { height: (unit - weightNess), width: (unit - weightNess) },
+  garlic: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess) },
+  kale: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
+  leeks: { height: (unit / 6 - weightNess), width: (unit / 6 - weightNess) },
+  lettuce: { height: (unit / 5 - weightNess), width: (unit / 5 - weightNess) },
+  onion: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess) },
+  parsnip: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess) },
+  pepper: { height: (unit - weightNess), width: (unit - weightNess) },
+  spinach: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess) },
+  squash: { height: (unit - weightNess), width: (unit - weightNess)},
+  tomato: { height: (unit - weightNess), width: (unit - weightNess)},
 };
 
 
@@ -112,7 +112,7 @@ function mouseReleased() {
 function addToGarden(plant) {
   let start = unit / 2;
   let info = plantList[plant];
-  plant = new Draggable(start, start, info.width, info.height, info.color, plant);
+  plant = new Draggable(start, start, info.width, info.height, plant);
 
   garden.push(plant);
 }
