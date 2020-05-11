@@ -4,9 +4,9 @@ let unit = defaultUnit()
 // Static object containing info about each plant's constraints
 let plantList = {
   arugula: { height: unit / 4, width: unit / 4, color: "#000" },
-  "beans, bush": { height: unit / 2, width: unit / 2, color: "#000" },
-  "beans, pole": { height: unit / 2, width: unit / 2, color: "#000" },
-  "brussels sprouts": { height: unit, width: unit, color: "#000" },
+  beansBush: { height: unit / 2, width: unit / 2, color: "#000" },
+  beansPole: { height: unit / 2, width: unit / 2, color: "#000" },
+  brusselsSprouts: { height: unit, width: unit, color: "#000" },
   cabbage: { height: unit, width: unit, color: "#000" },
   carrots: { height: unit / 4, width: unit / 4, color: "#000" },
   cauliflower: { height: unit, width: unit, color: "#000" },
@@ -104,10 +104,10 @@ function mouseReleased() {
 }
 
 // add new plant chosen by user to the page
-function addToGarden(selection) {
+function addToGarden(plant) {
   let start = unit / 2;
-  let info = plantList[selection];
-  plant = new Draggable(start, start, info.width, info.height, info.color);
+  let info = plantList[plant];
+  plant = new Draggable(start, start, info.width, info.height, info.color, plant);
 
   garden.push(plant);
 }

@@ -2,7 +2,7 @@
 // Daniel Shiffman <http://www.shiffman.net>
 
 class Draggable {
-  constructor(x, y, w, h, color) {
+  constructor(x, y, w, h, color, plant) {
     this.dragging = false; // Is the object being dragged?
     this.rollover = false; // Is the mouse over the ellipse?
     this.x = x;
@@ -12,6 +12,7 @@ class Draggable {
     this.offsetX = 0;
     this.offsetY = 0;
     this.color = color || 'gray';
+    this.plantImg = loadImage('icons/' + plant + '.svg');
   }
 
   over() {
@@ -32,16 +33,19 @@ class Draggable {
   }
 
   show() {
-    stroke(0);
+    stroke(220);
+    strokeWeight(1);
     // Different fill based on state
     if (this.dragging) {
-      fill(50);
+      fill(220);
     } else if (this.rollover) {
-      fill(100);
+      fill(240);
     } else {
-      fill(this.color);
+      noFill();
     }
+    
     rect(this.x, this.y, this.w, this.h);
+    image(this.plantImg, this.x, this.y, this.w, this.h)
   }
 
   pressed() {
