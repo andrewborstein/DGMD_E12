@@ -26,7 +26,7 @@ let plantList = {
 };
 
 
-let gardenWidthSelect, gardenHeightSelect, gardenXFeet, gardenYfeet;
+let bgImage, gardenWidthSelect, gardenHeightSelect, gardenXFeet, gardenYfeet;
 let garden = [];
 
 function setup() {
@@ -52,10 +52,12 @@ function setup() {
   resizeGarden();
   gardenWidthSelect.changed(resizeGarden);
   gardenHeightSelect.changed(resizeGarden);
+
+  bgImage = loadImage('./garden.jpg');
 }
 
 function draw() {
-  background(200);
+  background('#bfd1b8');
 
   // draw the garden area
   strokeWeight(4);
