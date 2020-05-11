@@ -1,31 +1,31 @@
 // Unit used to calculate garden size in pixels, relative to feet
 let unit = defaultUnit()
 
+// Global stroke weight
 let weight = 4
-let weightNess = weight * 1.5
 
 // Static object containing info about each plant's constraints
 let plantList = {
-  arugula: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess) },
-  beansBush: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
-  beansPole: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
-  brusselsSprouts: { height: (unit - weightNess), width: (unit - weightNess) },
-  cabbage: { height: (unit - weightNess), width: (unit - weightNess) },
-  carrots: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess) },
-  cauliflower: { height: (unit - weightNess), width: (unit - weightNess) },
-  celery: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
-  cucumber: { height: (unit - weightNess), width: (unit - weightNess) },
-  eggplant: { height: (unit - weightNess), width: (unit - weightNess) },
-  garlic: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess) },
-  kale: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess) },
-  leeks: { height: (unit / 6 - weightNess), width: (unit / 6 - weightNess) },
-  lettuce: { height: (unit / 5 - weightNess), width: (unit / 5 - weightNess) },
-  onion: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess) },
-  parsnip: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess) },
-  pepper: { height: (unit - weightNess), width: (unit - weightNess) },
-  spinach: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess) },
-  squash: { height: (unit - weightNess), width: (unit - weightNess)},
-  tomato: { height: (unit - weightNess), width: (unit - weightNess)},
+  arugula: { height: 1/4, width: 1/4 },
+  beansBush: { height: 1/2, width: 1/2 },
+  beansPole: { height: 1/2, width: 1/2 },
+  brusselsSprouts: { height: 1, width: 1 },
+  cabbage: { height: 1, width: 1 },
+  carrots: { height: 1/4, width: 1/4 },
+  cauliflower: { height: 1, width: 1 },
+  celery: { height: 1/2, width: 1/2 },
+  cucumber: { height: 1, width: 1 },
+  eggplant: { height: 1, width: 1 },
+  garlic: { height: 1/4, width: 1/4 },
+  kale: { height: 1/2, width: 1/2 },
+  leeks: { height: 1/3, width: 1/2 },
+  lettuce: { height: 1/5, width: 1/5 },
+  onion: { height: 1/3, width: 1/3 },
+  parsnip: { height: 1/3, width: 1/3 },
+  pepper: { height: 1, width: 1 },
+  spinach: { height: 1/3, width: 1/3 },
+  squash: { height: 1, width: 1},
+  tomato: { height: 1, width: 1},
 };
 
 
@@ -69,22 +69,25 @@ function draw() {
 
   let gardenWidth = (gardenXFeet * unit) + (gardenXFeet * weight);
   let gardenHeight = (gardenYFeet * unit) + (gardenYFeet * weight);
+  let controlsHeight = 25
 
   let gardenXStart = (windowWidth - gardenWidth) / 2;
   let gardenXEnd = gardenXStart + gardenWidth;
 
-  let gardenYStart = (windowHeight - gardenHeight) / 2;
+  let gardenYStart = ((windowHeight - gardenHeight) / 2) + controlsHeight;
   let gardenYEnd = gardenYStart + gardenHeight;
+
+  let step = unit + weight
 
   rect(gardenXStart, gardenYStart, gardenWidth, gardenHeight);
 
   // Draw vertical lines
-  for (let x = gardenXStart + unit; x < gardenXEnd; x += (unit + (weight * 2))) {
+  for (let x = gardenXStart + step; x < gardenXEnd; x += step) {
     line(x, gardenYStart, x, gardenYEnd);
   }
 
   // Draw horizontal lines
-  for (let y = gardenYStart + unit; y < gardenYEnd; y += (unit + (weight * 2))) {
+  for (let y = gardenYStart + step; y < gardenYEnd; y += step) {
     line(gardenXStart, y, gardenXEnd, y);
   }
 
@@ -112,7 +115,7 @@ function mouseReleased() {
 function addToGarden(plant) {
   let start = unit / 2;
   let info = plantList[plant];
-  plant = new Draggable(start, start, info.width, info.height, plant);
+  plant = new Draggable(start, start, info.width, info.height, plant, unit);
 
   garden.push(plant);
 }
@@ -128,12 +131,22 @@ function defaultUnit() {
 }
 
 function resizeGarden() {
+  gardenXFeet = parseInt(gardenWidthSelect.value());
+  gardenYFeet = parseInt(gardenHeightSelect.value());
+
   // reset the unit to the default
   unit = defaultUnit()
 
   // Change the unit size if the garden wont fit vertically
-  let gardenWontFit = gardenYFeet * unit > window.innerHeight;
+  let maxHeight = window.innerHeight - 200
+  let gardenWontFit = (gardenYFeet * unit) > maxHeight;
   if (gardenWontFit) {
-    unit = window.innerHeight / (gardenYFeet + 2);
+    unit = maxHeight / gardenYFeet;
   }
+
+  // Update garden unit size, so plant size can adjust
+  garden.forEach(function (plant) {
+    let info = plantList[plant.name];
+    plant.update(info.width, info.height, unit);
+  });
 }

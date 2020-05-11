@@ -2,16 +2,18 @@
 // Daniel Shiffman <http://www.shiffman.net>
 
 class Draggable {
-  constructor(x, y, w, h, plant) {
+  constructor(x, y, w, h, plant, unit) {
     this.dragging = false; // Is the object being dragged?
     this.rollover = false; // Is the mouse over the ellipse?
     this.x = x;
     this.y = y;
-    this.w = w;
-    this.h = h;
+    this.w = w * unit;
+    this.h = h * unit;
     this.offsetX = 0;
     this.offsetY = 0;
+    this.name = plant;
     this.plantImg = loadImage('icons/' + plant + '.svg');
+    this.unit = unit;
   }
 
   over() {
@@ -23,22 +25,30 @@ class Draggable {
     }
   }
 
-  update() {
+  update(h, w, unit) {
     // Adjust location if being dragged
     if (this.dragging) {
       this.x = mouseX + this.offsetX;
       this.y = mouseY + this.offsetY;
     }
+
+    if (unit) {
+      console.log('unit', unit);
+      // debugger
+      this.w = w * unit;
+      this.h = h * unit;
+    }
   }
 
   show() {
-    stroke(200);
+    stroke(120);
     strokeWeight(1);
     // Different fill based on state
     if (this.dragging) {
-      fill(200);
+      fill(220);
     } else if (this.rollover) {
-      fill(225);
+      fill(240);
+      stroke(100);
     } else {
       noFill();
     }
