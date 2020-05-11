@@ -1,28 +1,31 @@
 // Unit used to calculate garden size in pixels, relative to feet
 let unit = defaultUnit()
 
+let weight = 4
+let weightNess = weight * 1.5
+
 // Static object containing info about each plant's constraints
 let plantList = {
-  arugula: { height: unit / 4, width: unit / 4, color: "#000" },
-  beansBush: { height: unit / 2, width: unit / 2, color: "#000" },
-  beansPole: { height: unit / 2, width: unit / 2, color: "#000" },
-  brusselsSprouts: { height: unit, width: unit, color: "#000" },
-  cabbage: { height: unit, width: unit, color: "#000" },
-  carrots: { height: unit / 4, width: unit / 4, color: "#000" },
-  cauliflower: { height: unit, width: unit, color: "#000" },
-  celery: { height: unit / 2, width: unit / 2, color: "#000" },
-  cucumber: { height: unit, width: unit, color: "#000" },
-  eggplant: { height: unit, width: unit, color: "#000" },
-  garlic: { height: unit / 4, width: unit / 4, color: "#000" },
-  kale: { height: unit / 2, width: unit / 2, color: "#000" },
-  leeks: { height: unit / 6, width: unit / 6, color: "#000" },
-  lettuce: { height: unit / 5, width: unit / 5, color: "#000" },
-  onion: { height: unit / 9, width: unit / 9, color: "#000" },
-  parsnip: { height: unit / 9, width: unit / 9, color: "#000" },
-  pepper: { height: unit, width: unit, color: "#000" },
-  spinach: { height: unit / 9, width: unit / 9, color: "#000" },
-  squash: { height: unit, width: unit, color: "yellow" },
-  tomato: { height: unit, width: unit, color: "red" },
+  arugula: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess), color: "#000" },
+  beansBush: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
+  beansPole: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
+  brusselsSprouts: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
+  cabbage: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
+  carrots: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess), color: "#000" },
+  cauliflower: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
+  celery: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
+  cucumber: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
+  eggplant: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
+  garlic: { height: (unit / 4 - weightNess), width: (unit / 4 - weightNess), color: "#000" },
+  kale: { height: (unit / 2 - weightNess), width: (unit / 2 - weightNess), color: "#000" },
+  leeks: { height: (unit / 6 - weightNess), width: (unit / 6 - weightNess), color: "#000" },
+  lettuce: { height: (unit / 5 - weightNess), width: (unit / 5 - weightNess), color: "#000" },
+  onion: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess), color: "#000" },
+  parsnip: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess), color: "#000" },
+  pepper: { height: (unit - weightNess), width: (unit - weightNess), color: "#000" },
+  spinach: { height: (unit / 9 - weightNess), width: (unit / 9 - weightNess), color: "#000" },
+  squash: { height: (unit - weightNess), width: (unit - weightNess), color: "yellow" },
+  tomato: { height: (unit - weightNess), width: (unit - weightNess), color: "red" },
 };
 
 
@@ -60,12 +63,12 @@ function draw() {
   background('#bfd1b8');
 
   // draw the garden area
-  strokeWeight(4);
+  strokeWeight(weight);
   stroke(51);
   fill(255);
 
-  let gardenWidth = gardenXFeet * unit;
-  let gardenHeight = gardenYFeet * unit;
+  let gardenWidth = (gardenXFeet * unit) + (gardenXFeet * weight);
+  let gardenHeight = (gardenYFeet * unit) + (gardenYFeet * weight);
 
   let gardenXStart = (windowWidth - gardenWidth) / 2;
   let gardenXEnd = gardenXStart + gardenWidth;
@@ -76,12 +79,12 @@ function draw() {
   rect(gardenXStart, gardenYStart, gardenWidth, gardenHeight);
 
   // Draw vertical lines
-  for (let x = gardenXStart + unit; x < gardenXEnd; x += unit) {
+  for (let x = gardenXStart + unit; x < gardenXEnd; x += (unit + (weight * 2))) {
     line(x, gardenYStart, x, gardenYEnd);
   }
 
   // Draw horizontal lines
-  for (let y = gardenYStart + unit; y < gardenYEnd; y += unit) {
+  for (let y = gardenYStart + unit; y < gardenYEnd; y += (unit + (weight * 2))) {
     line(gardenXStart, y, gardenXEnd, y);
   }
 

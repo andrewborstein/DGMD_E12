@@ -33,13 +33,13 @@ class Draggable {
   }
 
   show() {
-    stroke(220);
+    stroke(200);
     strokeWeight(1);
     // Different fill based on state
     if (this.dragging) {
-      fill(220);
+      fill(200);
     } else if (this.rollover) {
-      fill(240);
+      fill(225);
     } else {
       noFill();
     }
